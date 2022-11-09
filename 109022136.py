@@ -123,7 +123,7 @@ def Testset(lines):
 st.title("Spellchecker Demo")
 
 with st.sidebar:
-    to_show = st.checkbox("Show original word")
+    to_show = st.checkbox("Show original word 原形字")
 
 choose_word = st.selectbox("Choose a word or...", ['','apple', 'ball', 'cat', 'corection'])
 choose_word = st.text_input("type your own!!", value=choose_word)
