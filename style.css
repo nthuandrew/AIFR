@@ -1,0 +1,31 @@
+.highlight {
+    border-radius: 0.1rem;
+    color: black;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+  }
+  .bold {
+    padding-left: 1rem;
+    font-weight: 700;
+  }
+  .zero {
+    background-color: rgb(247, 240, 240);
+  }
+  .one {
+    background-color: rgb(209, 57, 95);
+  }
+  .two {
+    background-color: rgb(224, 33, 205);
+  }
+  .three {
+    background-color: rgb(213, 239, 110);
+  }
+  .four {
+    background-color: rgb(96, 96, 219);
+  }
+  .five {
+    background-color: rgb(183, 169, 224);
+  }
+  .six {
+    background-color: rgb(234, 20, 56);
+  }
