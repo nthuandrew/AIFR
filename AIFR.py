@@ -2,34 +2,48 @@ import re
 import time
 from collections import Counter
 import streamlit as st
-import openpyxl
 from load_css import local_css
+import pandas as pd
 
 local_css("style.css")
 
-wb_origin = openpyxl.load_workbook('A1_二次標註_網路危機訊息標註_1100927_second_labeled.xlsx', data_only=1)
-wb_labeled = openpyxl.load_workbook('網路危機_A1_電腦斷句_討論標註_全_修正完成.xlsx', data_only=1)
-sheet_origin = wb_origin['contents']
-sheet_labeled = wb_labeled['Merged']
+#wb_origin = openpyxl.load_workbook('A1_二次標註_網路危機訊息標註_1100927_second_labeled.xlsx', data_only=1)
+#wb_labeled = openpyxl.load_workbook('網路危機_A1_電腦斷句_討論標註_全_修正完成.xlsx', data_only=1)
+excel_data_df1 = pd.read_excel('A1_二次標註_網路危機訊息標註_1100927_second_labeled.xlsx', sheet_name='contents')
+excel_data_df2 = pd.read_excel('網路危機_A1_電腦斷句_討論標註_全_修正完成.xlsx', sheet_name='Merged')
 
-Title = sheet_origin['G'][1].value
-TextID = sheet_origin['B'][1].value
-TextTime = sheet_origin['D'][1].value
-Author = sheet_origin['F'][1].value
+#sheet_origin = wb_origin['contents']
+#sheet_labeled = wb_labeled['Merged']
 
-original_content = sheet_origin['I'][1].value
+# Title = sheet_origin['G'][1].value
+# TextID = sheet_origin['B'][1].value
+# TextTime = sheet_origin['D'][1].value
+# Author = sheet_origin['F'][1].value
 
-sentences = sheet_labeled['D'][1:50]
-labels = sheet_labeled['H'][1:50]
+Titles = excel_data_df1['Title'][:50].tolist()
+TextIDs = excel_data_df1['TextID'][:50].tolist()
+TextTimes = excel_data_df1['TextTime'][:50].tolist()
+Authors = excel_data_df1['Author'][:50].tolist()
+
+
+original_contents = excel_data_df1['Content(remove_tag)'][:50].tolist()
+
+#sentences = sheet_labeled['D'][1:50]
+#labels = sheet_labeled['H'][1:50]
+
+sentences = excel_data_df2['Sentence'][:50].tolist()
+labels = excel_data_df2['標註代碼'][:50].tolist()
+# print(type(sentences[2]))
+# print(type(labels[2]))
 
 
 st.title("AIFR demo")
 
 with st.sidebar:
-    title = "文章標題: " + Title
-    textid = "文章ID: " + str(TextID)
-    texttime = "發佈時間: " + str(textid)
-    author = "文章作者: " + Author
+    title = "文章標題: " + Titles[0]
+    textid = "文章ID: " + str(TextIDs[0])
+    texttime = "發佈時間: " + str(TextTimes[0])
+    author = "文章作者: " + Authors[0]
     st.header(title)
     st.markdown(textid)
     st.markdown(texttime)
@@ -38,13 +52,13 @@ with st.sidebar:
 col1, col2 = st.columns([20, 30])
 with col1:
     st.header("Content")
-    st.markdown(original_content)
+    st.markdown(original_contents[0])
 
 with col2:
     st.header("The sentence")
     for i in range(len(sentences)):
-        lab = labels[i].value
-        sen = sentences[i].value
+        lab = labels[i]
+        sen = sentences[i]
         if lab == 0 or lab == 7:
             s = "<div><span class='highlight zero'>" + sen + "</span></div>"
             st.markdown(s, unsafe_allow_html=1)
@@ -94,15 +108,3 @@ with col2:
 #         elif lab == 6:
 #             st.markdown("自殺行為(行為)") 
 #         st.caption('\n')
-
-# choose_word = st.selectbox("Choose a word or...", ['','app', 'ball', 'cat', 'corection'])
-# choose_word = st.text_input("type your own!!", value=choose_word)
-
-# if(choose_word):
-#     correct_word = correction(choose_word)
-#     if(to_show):
-#         st.markdown("the original word is "+correct_word)
-#     if(choose_word == correct_word):
-#         st.success(correct_word + " is the correct spelling")
-#     else:
-#         st.error("Correction: " + correct_word)
