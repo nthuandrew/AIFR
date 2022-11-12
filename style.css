@@ -1,7 +1,7 @@
 .highlight {
-    border-radius: 0.1rem;
+    border-radius: 0.3rem;
     color: black;
-    padding: 0.2rem;
+    padding: 0.05rem;
     margin-bottom: 1rem;
   }
   .bold {
@@ -9,7 +9,7 @@
     font-weight: 700;
   }
   .zero {
-    background-color: rgb(247, 240, 240);
+    background-color: white;
   }
   .one {
     background-color: rgb(209, 57, 95);
