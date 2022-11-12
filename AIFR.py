@@ -12,38 +12,30 @@ local_css("style.css")
 excel_data_df1 = pd.read_excel('A1_二次標註_網路危機訊息標註_1100927_second_labeled.xlsx', sheet_name='contents')
 excel_data_df2 = pd.read_excel('網路危機_A1_電腦斷句_討論標註_全_修正完成.xlsx', sheet_name='Merged')
 
-#sheet_origin = wb_origin['contents']
-#sheet_labeled = wb_labeled['Merged']
-
-# Title = sheet_origin['G'][1].value
-# TextID = sheet_origin['B'][1].value
-# TextTime = sheet_origin['D'][1].value
-# Author = sheet_origin['F'][1].value
-
-Titles = excel_data_df1['Title'][:50].tolist()
-TextIDs = excel_data_df1['TextID'][:50].tolist()
-TextTimes = excel_data_df1['TextTime'][:50].tolist()
-Authors = excel_data_df1['Author'][:50].tolist()
+Titles = excel_data_df1['Title'][:].tolist()
+TextIDs = excel_data_df1['TextID'][:].tolist()
+TextTimes = excel_data_df1['TextTime'][:].tolist()
+Authors = excel_data_df1['Author'][:].tolist()
 
 
-original_contents = excel_data_df1['Content(remove_tag)'][:50].tolist()
+original_contents = excel_data_df1['Content(remove_tag)'][:].tolist()
 
-#sentences = sheet_labeled['D'][1:50]
-#labels = sheet_labeled['H'][1:50]
 
-sentences = excel_data_df2['Sentence'][:50].tolist()
-labels = excel_data_df2['標註代碼'][:50].tolist()
-# print(type(sentences[2]))
-# print(type(labels[2]))
+sentences = excel_data_df2['Sentence'][:].tolist()
+labels = excel_data_df2['標註代碼'][:].tolist()
 
 
 st.title("AIFR demo")
 
+article = st.selectbox('Choose an article', Titles)
+
+key_i = Titles.index(article)
+
 with st.sidebar:
-    title = "文章標題: " + Titles[0]
-    textid = "文章ID: " + str(TextIDs[0])
-    texttime = "發佈時間: " + str(TextTimes[0])
-    author = "文章作者: " + Authors[0]
+    title = "文章標題: " + Titles[key_i]
+    textid = "文章ID: " + str(TextIDs[key_i])
+    texttime = "發佈時間: " + str(TextTimes[key_i])
+    author = "文章作者: " + Authors[key_i]
     st.header(title)
     st.markdown(textid)
     st.markdown(texttime)
@@ -52,13 +44,25 @@ with st.sidebar:
 col1, col2 = st.columns([20, 30])
 with col1:
     st.header("Content")
-    st.markdown(original_contents[0])
+    st.markdown(original_contents[key_i])
 
 with col2:
     st.header("The sentence")
-    for i in range(len(sentences)):
-        lab = labels[i]
-        sen = sentences[i]
+    New_titles = excel_data_df2['Title'][:].tolist()
+    # print(len(New_titles), New_titles[:10])
+    now_title_id = New_titles.index(article)
+    now_title_end = now_title_id
+    for single_title in New_titles[now_title_id:]:
+        if single_title == article:
+            now_title_end += 1
+        else:
+            break
+    now_sentences = sentences[now_title_id:now_title_end]
+    now_labels = labels[now_title_id:now_title_end]
+    # print(len(now_sentences))
+    for i in range(len(now_sentences)):
+        lab = now_labels[i]
+        sen = str(now_sentences[i])
         if lab == 0 or lab == 7:
             s = "<div><span class='highlight zero'>" + sen + "</span></div>"
             st.markdown(s, unsafe_allow_html=1)
