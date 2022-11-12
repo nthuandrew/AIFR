@@ -3,7 +3,6 @@ import time
 from collections import Counter
 import streamlit as st
 from load_css import local_css
-import openpyxl
 import pandas as pd
 
 local_css("style.css")
