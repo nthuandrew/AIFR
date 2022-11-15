@@ -5,27 +5,27 @@
     margin-bottom: 1rem;
   }
   .bold {
-    padding-left: 1rem;
+    padding-left: 0.2rem;
     font-weight: 700;
   }
   .zero {
     background-color: white;
   }
   .one {
-    background-color: rgb(209, 57, 95);
+    background-color: orange;
   }
   .two {
-    background-color: rgb(224, 33, 205);
+    background-color: 	LightGray;
   }
   .three {
-    background-color: rgb(213, 239, 110);
+    background-color: yellow;
   }
   .four {
-    background-color: rgb(96, 96, 219);
+    background-color: skyblue;
   }
   .five {
-    background-color: rgb(183, 169, 224);
+    background-color: Aqua;
   }
   .six {
-    background-color: rgb(234, 20, 56);
+    background-color: Coral;
   }
