@@ -63,7 +63,7 @@ with st.sidebar:
             for j in range(3):
                 st.markdown("\n")         
 
-col2, col1 = st.columns([30, 40])
+col2, col1 = st.columns([40, 30])
 with col1:
     st.header("Content")
     st.markdown(original_contents[key_i])
