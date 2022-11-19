@@ -29,3 +29,11 @@
   .six {
     background-color: Coral;
   }
+
+
+.category {
+    border-radius: 0.3rem;
+    color: red;
+    padding: 0.05rem;
+    margin-bottom: 1rem;
+  }
