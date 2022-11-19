@@ -1,6 +1,3 @@
-import re
-import time
-from collections import Counter
 import streamlit as st
 from load_css import local_css
 import pandas as pd
@@ -46,7 +43,6 @@ elif Level[key_i] == 1:
     category = "C(生理反應)"
 else:
     category = "D(中性句)"
-
 
 
 with st.sidebar:
